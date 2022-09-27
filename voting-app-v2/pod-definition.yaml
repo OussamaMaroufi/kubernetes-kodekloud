@@ -1,0 +1,111 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: "2022-09-22T18:11:21Z"
+  generateName: redis-deploy-7f878dfd46-
+  labels:
+    app: demo-voting-app
+    name: redis-pod
+    pod-template-hash: 7f878dfd46
+  name: redis-deploy-7f878dfd46-b4ctb
+  namespace: default
+  ownerReferences:
+  - apiVersion: apps/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ReplicaSet
+    name: redis-deploy-7f878dfd46
+    uid: d6d62a2c-25b5-4f62-9916-2beaa1604e28
+  resourceVersion: "50237"
+  uid: 700c6643-d529-4138-8781-e9ead6e2f6a6
+spec:
+  containers:
+  - image: redis
+    imagePullPolicy: Always
+    name: redis
+    ports:
+    - containerPort: 6379
+      protocol: TCP
+    resources: {}
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-jjj54
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: minikube
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: kube-api-access-jjj54
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2022-09-22T18:11:21Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2022-09-22T18:11:45Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2022-09-22T18:11:45Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2022-09-22T18:11:21Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: docker://3bb73bb988baf68af9c52eb980f14ce8fc55f88f75ba927da0551d0648e5742c
+    image: redis:latest
+    imageID: docker-pullable://redis@sha256:42795da9fe0a244e2876589a89e1e44011123f1024aac61a29aa38395ae3ca93
+    lastState: {}
+    name: redis
+    ready: true
+    restartCount: 0
+    started: true
+    state:
+      running:
+        startedAt: "2022-09-22T18:11:45Z"
+  hostIP: 192.168.49.2
+  phase: Running
+  podIP: 172.17.0.5
+  podIPs:
+  - ip: 172.17.0.5
+  qosClass: BestEffort
+  startTime: "2022-09-22T18:11:21Z"
